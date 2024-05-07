@@ -1,0 +1,45 @@
+ Cars
+CarID (PK)
+ManufacturerID (FK)
+CategoryID (FK)
+Model
+Year
+Price
+Photo
+
+ Users
+UserID (PK)
+FirstName
+LastName
+Email
+Password
+Address
+Phone
+
+ Orders
+OrderID (PK)
+UserID (FK)
+CarID (FK)
+OrderDate
+Quantity
+TotalPrice
+
+ Manufacturers
+ManufacturerID (PK)
+Name
+Country
+
+ Categories
+CategoryID (PK)
+CategoryName
+Description
+
+ Reviews
+ReviewID (PK)
+CarID (FK)
+UserID (FK)
+Rating
+Comment
+ReviewDate
+
+
