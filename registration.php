@@ -17,8 +17,8 @@
       <input type="tel" name="phone" placeholder="Phone Number" required/>
       <input type="email" name="email" placeholder="Email Address" required/>
       <input type="password" name="password" placeholder="Password" required/>
-      <button type="submit">Create</button>
-      <p class="message">Already registered? <a href="login.php">Login</a></p>
+      <button type="submit">Создать</button>
+      <p class="message">Уже зарегестрированы? <a href="login.php">Login</a></p>
     </form>
   </div>
 </div>
@@ -51,14 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = uniqid();
 
     // Генерация хэша для пароля
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
     // Ограничение количества цифр в номере телефона
     $phoneLimited = substr($phone, 0, 11);
 
     // SQL-запрос для добавления пользователя в базу данных
     $sql = "INSERT INTO Users (UserID, FirstName, LastName, Email, Password, Address, Phone)
-            VALUES ('$userId', '$firstName', '$lastName', '$email', '$passwordHash', '$address', '$phoneLimited')";
+            VALUES ('$userId', '$firstName', '$lastName', '$email', '$password', '$address', '$phoneLimited')";
 
     // Выполнение запроса
     if ($conn->query($sql) === TRUE) {
