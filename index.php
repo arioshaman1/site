@@ -51,13 +51,16 @@
 
         <div class="text-end">
           <button type="button" class="btn btn-light text-dark me-2">Login</button>
-          <button type="button" class="btn btn-primary">Sign-up</button>
+          <button type="button" class="btn btn-primary" onclick="window.location.href = 'registration.php';">Sign-up</button>
+
         </div>
       </div>
     </div>
   </header>
   <div class="container">
     <div class="row">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
         <?php
         // Подключение к базе данных
         $servername = "localhost";
@@ -80,25 +83,24 @@
         if ($result->num_rows > 0) {
             // Вывод данных о машинах
             while ($row = $result->fetch_assoc()) {
-                echo "<div class='col-md-4'>";
-                echo "<div class='card'>";
-                echo "<img src='" . $row["Photo"] . "' class='card-img-top' alt='" . $row["Model"] . "'>";
-                echo "<div class='card-body'>";
-                echo "<h5 class='card-title'>" . $row["Model"] . "</h5>";
-                echo "<p class='card-text'>Year: " . $row["Year"] . "</p>";
-                echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
+              echo "<div class='col-md-4'>";
+              echo "<div class='card h-100'>";
+              echo "<img src='" . $row["Photo"] . "' class='card-img-top img-fluid' alt='" . $row["Model"] . "'>";
+              echo "<div class='card-body text-center'>"; // добавляем класс text-center
+              echo "<h5 class='card-title'>" . $row["Model"] . "</h5>";
+              echo "<p class='card-text'>Year: " . $row["Year"] . "</p>";
+              echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
+              echo "</div>";
+              echo "</div>";
+              echo "</div>";
+              
             }
         } else {
             echo "0 results";
         }
         $conn->close();
+        
         ?>
-
-
-
 
 
 
@@ -183,3 +185,7 @@
 </div>
 </div>
 </footer>
+<footer id="footer" class="footer-1">
+  <!-- Код футера -->
+</footer>
+
