@@ -5,7 +5,7 @@ session_start();
 // Проверяем, есть ли у пользователя активная сессия (в данном случае, проверяем наличие сохраненного адреса электронной почты в сессионных данных)
 if (!isset($_SESSION["email"])) {
     // Если нет сессии, перенаправляем пользователя на страницу входа
-    header("Location: login.php");
+    header("Location: fake_cart.php");
     exit(); // Прекращаем выполнение скрипта
 }
 
@@ -28,26 +28,30 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Предположим, что у нас есть адрес электронной почты пользователя, хранимый в переменной $email
-$email = $_SESSION["email"]; // Предполагается, что вы уже получили адрес электронной почты из сессии
-
-// SQL-запрос для получения имени пользователя из базы данных
-$sql = "SELECT FirstName FROM Users WHERE Email = '$email'";
-$result = $conn->query($sql);
-
-// Проверяем, есть ли результат
-if ($result->num_rows > 0) {
-    // Если есть хотя бы одна строка результатов, извлекаем имя пользователя
-    $row = $result->fetch_assoc();
-    $username = $row["FirstName"]; // Получаем имя пользователя из результата запроса
-} else {
-    // Если нет результатов, устанавливаем имя пользователя по умолчанию или выводим сообщение об ошибке
-    $username = "Unknown"; // Установка имени по умолчанию
+// Если получен POST запрос из формы добавления в корзину
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Проверяем, получен ли ID машины
+    if (isset($_POST["car_id"])) {
+        $car_id = $_POST["car_id"];
+        // Подготовка и выполнение SQL-запроса для добавления товара в корзину пользователя
+        if (!empty($car_id)) {
+            $sql_insert = "INSERT INTO Cart (user_email, car_id) VALUES ('$email', '$car_id')";
+            if ($conn->query($sql_insert) === TRUE) {
+                echo "Товар успешно добавлен в корзину!";
+            } else {
+                echo "Ошибка: " . $sql_insert . "<br>" . $conn->error;
+            }
+        } else {
+            echo "ID машины пусто!";
+        }
+    } else {
+        echo "ID машины не получено!";
+    }
 }
 
-// Закрываем соединение с базой данных
-$conn->close();
-
+// SQL-запрос для получения содержимого корзины пользователя
+$sql_cart = "SELECT Cars.Model, Cars.Year, Cars.Price, Cars.Photo FROM Cart INNER JOIN Cars ON Cart.car_id = Cars.ID WHERE Cart.user_email = '$email'";
+$result_cart = $conn->query($sql_cart);
 
 ?>
 
@@ -56,53 +60,9 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="dashboard.css">
 </head>
-<?php
-function generate_cart_id() {
-    // Генерируем уникальный идентификатор на основе текущего времени и случайного числа
-    $cart_id = uniqid('cart_');
-
-    return $cart_id;
-}
-// Проверяем, была ли отправлена форма
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Генерируем уникальный CartID
-    $cart_id = generate_cart_id();
-    
-    // Получаем ID автомобиля из формы
-    $car_id = $_POST['car_id'];
-
-    // Подключение к базе данных
-    $servername = "localhost";
-    $username = "root";
-    $password = "mysql";
-    $dbname = "autoservice";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Проверка подключения
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Если подключение успешно, выполняем запрос на вставку данных в таблицу Cart
-    $sql = "INSERT INTO Cart (CartID, user_email, car_id) VALUES ('$cart_id', '$email', '$car_id')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Закрываем соединение с базой данных
-    $conn->close();
-}
-?>
-
-
 <body>
 
 <header>
@@ -152,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container d-flex flex-wrap justify-content-center">
             <div class="text-end">
                 <!-- Выводим имя пользователя вместо кнопок -->
-                <p class="text-white me-2">Добро пожаловать, <?php echo $username; ?></p>
+                <p class="text-white me-2">Добро пожаловать, <?php echo $email; ?></p>
                 <!-- Вместо кнопок login и sign up должно быть имя пользователя -->
                 <button type="button" class="btn btn-primary" onclick="window.location.href = 'user_session.php';">Личный кабинет</button>
             </div>
@@ -162,49 +122,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
     <div class="row">
+        <h2>Корзина</h2>
         <?php
-        // Подключение к базе данных
-        $servername = "localhost";
-        $username = "root";
-        $password = "mysql";
-        $dbname = "autoservice";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Проверка подключения
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // SQL-запрос для извлечения данных о машинах
-        $sql = "SELECT * FROM Cars";
-        $result = $conn->query($sql);
-
-        // Проверка наличия результатов
-        if ($result->num_rows > 0) {
-            // Вывод данных о машинах
-            while ($row = $result->fetch_assoc()) {
+        // Выводим содержимое корзины пользователя
+        if ($result_cart->num_rows > 0) {
+            while ($row = $result_cart->fetch_assoc()) {
                 echo "<div class='col-md-4'>";
                 echo "<div class='card h-100'>";
-                echo "<img src='" . $row["Photo"] . "' class='card-img-top img-fluid' alt='" . $row["Model"] . "'>";
-                echo "<div class='card-body text-center'>";
+                echo "<img src='" . $row["Photo"] . "' class='card-img-top' alt='Car Photo'>";
+                echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . $row["Model"] . "</h5>";
-                echo "<p class='card-text'>Year: " . $row["Year"] . "</p>";
-                echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
-                // Добавляем форму с кнопкой "Добавить в корзину"
-                echo "<form action='cart.php' method='post'>";
-echo "<input type='hidden' name='car_id' value='" . $row["ID"] . "'>"; // Передаем ID автомобиля
-echo "<button type='submit' name='add_to_cart' class='btn btn-primary'>Add to Cart</button>";
-echo "</form>";
-
+                echo "<p class='card-text'>Год: " . $row["Year"] . "</p>";
+                echo "<p class='card-text'>Цена: $" . $row["Price"] . "</p>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
             }
         } else {
-            echo "0 results";   
+            echo "<p>Корзина пуста</p>";
         }
-        $conn->close();
         ?>
     </div>
 </div>

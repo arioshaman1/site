@@ -7,13 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Подключаемся к базе данных
     $servername = "localhost";
     $username = "root";
-    $password = "mysql";    
-    $dbname = "autoservice";
-
-    // Создаем соединение
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Проверяем соединение
+    $password = "mysql";
+    $database = "autoservice";
+    $conn = new mysqli($servername, $username, $password, $database);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -21,8 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Получаем данные из формы
     $email = $_POST["email"];
     $password = $_POST["password"];
-    echo "Email: $email<br>";
-    echo "Password: $password<br>";
 
     // SQL-запрос для получения хэшированного пароля из базы данных
     $sql = "SELECT * FROM Users WHERE Email='$email'";
@@ -52,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
