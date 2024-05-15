@@ -108,44 +108,39 @@ $conn->close();
 
 
 <footer class="bg-body-tertiary text-center text-lg-start">
-  <!-- Grid container -->
+  <!-- Контейнер сетки -->
   <div class="container p-4">
-    <!--Grid row-->
+    <!--Ряд сетки-->
     <div class="row">
-      <!--Grid column-->
+      <!--Колонка сетки-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Footer text</h5>
+        <h5 class="text-uppercase">Свяжитесь с нами</h5>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-          voluptatem veniam, est atque cumque eum delectus sint!
+          Не стесняйтесь обращаться к нам с любыми вопросами или запросами по поводу продажи автомобилей. Наша команда всегда готова предоставить вам лучший сервис.
         </p>
       </div>
-      <!--Grid column-->
+      <!--Колонка сетки-->
 
-      <!--Grid column-->
+      <!--Колонка сетки-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Footer text</h5>
+        <h5 class="text-uppercase">Подключитесь к нам</h5>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-          voluptatem veniam, est atque cumque eum delectus sint!
+          Следите за нами в социальных сетях, чтобы быть в курсе последних новостей, акций и специальных предложений по автомобилям. Присоединяйтесь к нашему сообществу автолюбителей!
         </p>
       </div>
-      <!--Grid column-->
+      <!--Колонка сетки-->
     </div>
-    <!--Grid row-->
+    <!--Ряд сетки-->
   </div>
-  <!-- Grid container -->
+  <!-- Контейнер сетки -->
 
-  <!-- Copyright -->
+  <!-- Авторские права -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2020 Copyright:
-    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    © 2024 Все права защищены. | Автосалон "Автомобильный мир" | Дизайн сайта: Адайкин А.
   </div>
-  <!-- Copyright -->
+  <!-- Авторские права -->
 </footer>
 
 

@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="email" name="email" placeholder="Email Address" required/>
       <input type="password" name="password" placeholder="Password" required/>
       <button type="submit">Отправить</button>
+      
       <p class="message">Не зарегистрированы? <a href="registration.php">Регистрация</a></p>
     </form>
   </div>

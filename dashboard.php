@@ -193,9 +193,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
                 // Добавляем форму с кнопкой "Добавить в корзину"
                 echo "<form action='cart.php' method='post'>";
-echo "<input type='hidden' name='car_id' value='" . $row["ID"] . "'>"; // Передаем ID автомобиля
-echo "<button type='submit' name='add_to_cart' class='btn btn-primary'>Add to Cart</button>";
-echo "</form>";
+echo "<input type='hidden' name='car_id' value='" . $row["CarID"] . "'>"; // Передаем ID автомобиля
+echo "<button type='submit' name='add_to_cart' class='btn btn-primary'>Добавить в корзину</button>";
+echo "</form>"; 
 
                 echo "</div>";
                 echo "</div>";
@@ -211,3 +211,40 @@ echo "</form>";
 
 </body>
 </html>
+
+
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Контейнер сетки -->
+  <div class="container p-4">
+    <!--Ряд сетки-->
+    <div class="row">
+      <!--Колонка сетки-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Свяжитесь с нами</h5>
+
+        <p>
+          Не стесняйтесь обращаться к нам с любыми вопросами или запросами по поводу продажи автомобилей. Наша команда всегда готова предоставить вам лучший сервис.
+        </p>
+      </div>
+      <!--Колонка сетки-->
+
+      <!--Колонка сетки-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Подключитесь к нам</h5>
+
+        <p>
+          Следите за нами в социальных сетях, чтобы быть в курсе последних новостей, акций и специальных предложений по автомобилям. Присоединяйтесь к нашему сообществу автолюбителей!
+        </p>
+      </div>
+      <!--Колонка сетки-->
+    </div>
+    <!--Ряд сетки-->
+  </div>
+  <!-- Контейнер сетки -->
+
+  <!-- Авторские права -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Все права защищены. | Автосалон "Автомобильный мир" | Дизайн сайта: Адайкин А.
+  </div>
+  <!-- Авторские права -->
+</footer>

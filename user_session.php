@@ -12,8 +12,6 @@ if (!isset($_SESSION["email"])) {
 // Если сессия найдена, получаем адрес электронной почты пользователя из сессии
 $email = $_SESSION["email"];
 
-// Здесь вы можете выполнить дополнительные действия, специфичные для защищенной страницы
-
 // Подключение к базе данных
 $servername = "localhost";
 $username = "root";
@@ -40,6 +38,10 @@ if ($result->num_rows > 0) {
     // Если нет результатов, вы можете вывести сообщение об ошибке или выполнить другие действия
     $user_info = array(); // Пустой массив, чтобы избежать ошибок при обращении к данным
 }
+
+// SQL-запрос для извлечения отзывов пользователя
+$sql_reviews = "SELECT * FROM Reviews WHERE UserID = '{$user_info['UserID']}'";
+$result_reviews = $conn->query($sql_reviews);
 
 // Закрываем соединение с базой данных
 $conn->close();
@@ -112,14 +114,14 @@ $conn->close();
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-        <h1><?php echo 'Клиент: ';echo $user_info['FirstName'], $user_info['LastName'];?></h1>
+            <h1><?php echo 'Клиент: ';echo $user_info['FirstName'], $user_info['LastName'];?></h1>
             <h2>Личный кабинет</h2>
-<p><strong>Email:</strong> <?php echo $user_info['Email']; ?></p>
-<p><strong>Phone:</strong> <?php echo $user_info['Phone']; ?></p>
-<p><strong>Address:</strong> <?php echo $user_info['Address']; ?></p>
+            <p><strong>Email:</strong> <?php echo $user_info['Email']; ?></p>
+            <p><strong>Телефон:</strong> <?php echo $user_info['Phone']; ?></p>
+            <p><strong>Адрес:</strong> <?php echo $user_info['Address']; ?></p>
 
             <!-- Добавьте другие поля профиля, если необходимо -->
-            <h3>Purchased Products</h3>
+            <h3>Купленные машины</h3>
             <!-- Здесь вы можете вывести список купленных товаров пользователя из базы данных -->
             <!-- Примерно так: -->
             <ul>
@@ -127,17 +129,23 @@ $conn->close();
                 <li>Product 2</li>
                 <!-- Добавьте остальные товары -->
             </ul>
-            <h3>User Reviews</h3>
-            <!-- Здесь вы можете вывести отзывы пользователя из базы данных -->
-            <!-- Примерно так: -->
+            <h3>Отзывы пользователя</h3>
             <ul>
-                <li>Review 1</li>
-                <li>Review 2</li>
-                <!-- Добавьте остальные отзывы -->
+                <?php
+                // Проверяем, есть ли отзывы для данного пользователя
+                if ($result_reviews->num_rows > 0) {
+                    // Выводим отзывы
+                    while ($row_review = $result_reviews->fetch_assoc()) {
+                        echo "<li>" . $row_review['Comment'],
+                        $row_review['ReviewDate'] . "</li>";
+                    }
+                } else {
+                    // Если отзывов нет, выводим сообщение
+                    echo "<li>Отзывы не найдены.</li>";
+                }
+                ?>
             </ul>
         </div>
     </div>
 </div>
 
-</body>
-</html>
