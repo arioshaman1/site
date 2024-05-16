@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Car Reviews</title>
     <style>
         body {
@@ -119,17 +120,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #45a049;
         }
     </style>
+
 </head>
 <body>
 <div class="container">
     <h1>Отзывы о машинах</h1>
     <table>
         <tr>
-            <th>Car</th>
-            <th>User</th>
-            <th>Rating</th>
-            <th>Comment</th>
-            <th>ReviewDate</th>
+            <th>Машина</th>
+            <th>Пользователь</th>
+            <th>Рейтинг</th>
+            <th>Комментарий</th>
+            <th>Дата</th>
         </tr>
         <?php
         // Fetch reviews data from the database

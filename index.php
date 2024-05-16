@@ -16,17 +16,9 @@
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                Dashboard
-              </a>
+
             </li>
-            <li>
-              <a href="#" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg>
-                Заказы
-              </a>
-            </li>
+  
             <li>
               <a href="reviews.php" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"></use></svg>
@@ -48,8 +40,8 @@
         
 
         <div class="text-end">
-        <button type="button" class="btn btn-light text-dark me-2" onclick="window.location.href='login.php'">Login</button>
-          <button type="button" class="btn btn-primary" onclick="window.location.href = 'registration.php';">Sign-up</button>
+        <button type="button" class="btn btn-light text-dark me-2" onclick="window.location.href='login.php'">Войти</button>
+          <button type="button" class="btn btn-primary" onclick="window.location.href = 'registration.php';">Регистрация</button>
 
         </div>
       </div>

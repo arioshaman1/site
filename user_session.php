@@ -70,31 +70,31 @@ $conn->close();
                     <li>
                         <a href="index.php" class="nav-link text-secondary">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
-                            Home
+                            Домой
                         </a>
                     </li>
                     <li>
                         <a href="dashboard.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                            Dashboard
+                            Каталог
                         </a>
                     </li>
                     <li>
                         <a href="orders.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg>
-                            Orders
+                            Заказы
                         </a>
                     </li>
                     <li>
                         <a href="reviews.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"></use></svg>
-                            Reviews
+                            Отзывы
                         </a>
                     </li>
                     <li>
                         <a href="cart.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
-                            Cart
+                            Корзина
                         </a>
                     </li>
                 </ul>

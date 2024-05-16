@@ -68,6 +68,8 @@ if ($result_user_id->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cart_modal.css">
 </head>
 <body>
 
@@ -87,9 +89,9 @@ if ($result_user_id->num_rows > 0) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="dashboard.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                            Dashboard
+                            Каталог
                         </a>
                     </li>
                     <li>
@@ -146,6 +148,7 @@ if ($result_user_id->num_rows > 0) {
                     echo "<h5 class='card-title'>" . $car["Model"] . "</h5>";
                     echo "<p class='card-text'>Год: " . $car["Year"] . "</p>";
                     echo "<p class='card-text'>Цена: $" . $car["Price"] . "</p>";
+                    echo "<button type='submit' class='btn btn-danger'>Удалить из корзины</button>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
@@ -157,10 +160,7 @@ if ($result_user_id->num_rows > 0) {
         ?>
     </div>
 </div>
-
-
 </body>
-</html>
 
 <?php
 } else {
@@ -204,6 +204,22 @@ function CalculateTotalPrice($user_id) {
     return $total_price;
 }
 ?>
+<body>
+
+<button class="btn btn-primary" id="openModalBtn">Оформить заказ</button>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="totalPriceContent">Общая стоимость всех товар в корзине :$ <span id="totalPrice"></span></p>
+    <button class="btn btn-primary" id="checkoutBtn">Оформить заказ</button>
+  </div>
+</div>
+<div id="overlay"></div>
+<script src="cart_modal.js"></script>
+
+</body>
+</html>
 
 
 <footer class="bg-body-tertiary text-center text-lg-start">

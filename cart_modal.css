@@ -1,0 +1,48 @@
+/* Стили для модального окна */
+.modal {
+  display: none; /* Скрываем модальное окно по умолчанию */
+  position: fixed; /* Фиксированное положение модального окна */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+}
+
+.modal-content {
+  background-color: #fefefe; /* Цвет фона модального окна */
+  margin: 15% auto; /* Выравниваем модальное окно по центру */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Ширина модального окна */
+}
+
+.close {
+  color: #aaa; /* Цвет крестика */
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black; /* Цвет крестика при наведении */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Стили для кнопки */
+#openModalBtn {
+  width: 100%; /* Растягиваем кнопку на всю ширину */
+  padding: 20px; /* Добавляем отступы вокруг текста кнопки */
+  font-size: 18px;
+  background-color: #007bff; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  border: none; /* Убираем границы кнопки */
+}
+
+#openModalBtn:hover {
+  background-color: #0056b3; /* Цвет фона кнопки при наведении */
+  cursor: pointer; /* Изменяем курсор при наведении */
+}
+
