@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Регистрация</title>
     <link rel="stylesheet" type="text/css" href="registration.css">
 </head>
 <body>
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Генерация хэша для пароля
     // Ограничение количества цифр в номере телефона
-    $phoneLimited = substr($phone, 0, 11);
+    $phoneLimited = substr($phone, 0, 20);
 
     // SQL-запрос для добавления пользователя в базу данных
     $sql = "INSERT INTO Users (UserID, FirstName, LastName, Email, Password, Address, Phone)
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Ошибка: " . $conn->error;
     }
 
     // Закрытие соединения

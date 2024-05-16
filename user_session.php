@@ -119,16 +119,6 @@ $conn->close();
             <p><strong>Email:</strong> <?php echo $user_info['Email']; ?></p>
             <p><strong>Телефон:</strong> <?php echo $user_info['Phone']; ?></p>
             <p><strong>Адрес:</strong> <?php echo $user_info['Address']; ?></p>
-
-            <!-- Добавьте другие поля профиля, если необходимо -->
-            <h3>Купленные машины</h3>
-            <!-- Здесь вы можете вывести список купленных товаров пользователя из базы данных -->
-            <!-- Примерно так: -->
-            <ul>
-                <li>Product 1</li>
-                <li>Product 2</li>
-                <!-- Добавьте остальные товары -->
-            </ul>
             <h3>Отзывы пользователя</h3>
             <ul>
                 <?php

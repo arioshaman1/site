@@ -230,7 +230,8 @@ function CalculateTotalPrice($user_id) {
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p id="totalPriceContent">Общая стоимость всех товар в корзине :$ <span id="totalPrice"></span></p>
+    <h2 id="totalPriceContent">Общая стоимость всех товаров в корзине :$ <span id="totalPrice"></span><h2>
+    <h5>Продолжить оформление?<h5>
     <button class="btn btn-primary" id="checkoutBtn">Оформить заказ</button>
   </div>
 </div>

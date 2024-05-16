@@ -53,13 +53,13 @@ if ($result_user_id->num_rows > 0) {
                     <li>
                         <a href="index.php" class="nav-link text-secondary">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
-                            Домой
+                            Выйти
                         </a>
                     </li>
                     <li>
                         <a href="dashboard.php" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                            Dashboard
+                            Каталог
                         </a>
                     </li>
                     <li>
