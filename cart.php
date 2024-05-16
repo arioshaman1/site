@@ -53,6 +53,22 @@ if ($result_user_id->num_rows > 0) {
         }
     }
 
+    // Если получен POST запрос из формы удаления из корзины
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["remove_car_id"])) {
+        $remove_car_id = $_POST["remove_car_id"];
+        // Подготовка и выполнение SQL-запроса для удаления товара из корзины пользователя
+        if (!empty($remove_car_id)) {
+            $sql_delete = "DELETE FROM Cart WHERE UserID = '$user_id' AND CarID = '$remove_car_id'";
+            if ($conn->query($sql_delete) === TRUE) {
+                echo "Товар успешно удален из корзины!";
+            } else {
+                echo "Ошибка: " . $sql_delete . "<br>" . $conn->error;
+            }
+        } else {
+            echo "ID машины пусто!";
+        }
+    }
+
     // SQL-запрос для получения содержимого корзины пользователя
     $sql_cart = "SELECT CarID FROM Cart WHERE UserID = '$user_id'";
     $result_cart = $conn->query($sql_cart);
@@ -148,7 +164,10 @@ if ($result_user_id->num_rows > 0) {
                     echo "<h5 class='card-title'>" . $car["Model"] . "</h5>";
                     echo "<p class='card-text'>Год: " . $car["Year"] . "</p>";
                     echo "<p class='card-text'>Цена: $" . $car["Price"] . "</p>";
+                    echo "<form method='post' action=''>";
+                    echo "<input type='hidden' name='remove_car_id' value='" . $car_id . "'>";
                     echo "<button type='submit' class='btn btn-danger'>Удалить из корзины</button>";
+                    echo "</form>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
@@ -220,7 +239,6 @@ function CalculateTotalPrice($user_id) {
 
 </body>
 </html>
-
 
 <footer class="bg-body-tertiary text-center text-lg-start">
   <!-- Контейнер сетки -->
