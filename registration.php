@@ -15,7 +15,7 @@
       <input type="text" name="lastName" placeholder="Last Name" required/>
       <input type="text" name="address" placeholder="Address" required/>
       <input type="tel" name="phone" placeholder="Phone Number" required/>
-      <input type="email" name="email" placeholder="Email Address" required/>
+      <input type="text" name="email" placeholder="Email Address" required/>
       <input type="password" name="password" placeholder="Password" required/>
       <button type="submit">Создать</button>
       <p class="message">Уже зарегестрированы? <a href="login.php">Login</a></p>
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
-        echo "Ошибка: " . $conn->error;
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
     // Закрытие соединения

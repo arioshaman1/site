@@ -228,13 +228,17 @@ function CalculateTotalPrice($user_id) {
 <button class="btn btn-primary" id="openModalBtn">Оформить заказ</button>
 
 <div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2 id="totalPriceContent">Общая стоимость всех товаров в корзине :$ <span id="totalPrice"></span><h2>
-    <h5>Продолжить оформление?<h5>
-    <button class="btn btn-primary" id="checkoutBtn">Оформить заказ</button>
-  </div>
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="totalPriceContent">Общая стоимость всех товаров в корзине :$ <span id="totalPrice"></span></h2>
+        <h5>Продолжить оформление?</h5>
+        <form id="orderForm" method="post" action="orders.php">
+        <button class="btn btn-primary" id="checkoutBtn">Оформить заказ</button>
+        <input type="hidden" id="totalPriceInput" name="total_price">
+        </form>
+    </div>
 </div>
+
 <div id="overlay"></div>
 <script src="cart_modal.js"></script>
 
