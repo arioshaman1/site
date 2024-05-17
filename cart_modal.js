@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var openModalBtn = document.getElementById("openModalBtn");
     var modal = document.getElementById("myModal");
     var totalPriceContent = document.getElementById("totalPrice");
-    var confirmOrderBtn = document.getElementById("confirmOrderBtn");
 
     openModalBtn.addEventListener("click", function() {
         var xhr = new XMLHttpRequest();
@@ -30,11 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("orderForm").submit();
     });
 
-    // Добавьте остальные обработчики событий, если они есть
-});
-
-
-
     // Закрытие модального окна при клике на крестик
     var closeButton = document.getElementsByClassName("close")[0];
     closeButton.addEventListener("click", function() {
@@ -52,5 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
     modal.addEventListener("click", function(event) {
         event.stopPropagation();
     });
-
-
+});
