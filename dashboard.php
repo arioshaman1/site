@@ -60,6 +60,7 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <?php
 function generate_cart_id() {
     // Генерируем уникальный идентификатор на основе текущего времени и случайного числа
@@ -159,53 +160,99 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="dashboard.php" method="GET">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Введите запрос для поиска" name="search">
+                    <button class="btn btn-outline-secondary" type="submit">Искать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
-        <?php
-        // Подключение к базе данных
-        $servername = "localhost";
-        $username = "root";
-        $password = "mysql";
-        $dbname = "autoservice";
+    <?php
+// Начинаем сессию
+session_start();
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+// Проверяем, есть ли у пользователя активная сессия (в данном случае, проверяем наличие сохраненного адреса электронной почты в сессионных данных)
+if (!isset($_SESSION["email"])) {
+    // Если нет сессии, перенаправляем пользователя на страницу входа
+    header("Location: login.php");
+    exit(); // Прекращаем выполнение скрипта
+}
 
-        // Проверка подключения
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+// Если сессия найдена, получаем адрес электронной почты пользователя из сессии
+$email = $_SESSION["email"];
 
-        // SQL-запрос для извлечения данных о машинах
-        $sql = "SELECT * FROM Cars";
-        $result = $conn->query($sql);
+// Здесь вы можете выполнить дополнительные действия, специфичные для защищенной страницы
 
-        // Проверка наличия результатов
-        if ($result->num_rows > 0) {
-            // Вывод данных о машинах
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='col-md-4'>";
-                echo "<div class='card h-100'>";
-                echo "<img src='" . $row["Photo"] . "' class='card-img-top img-fluid' alt='" . $row["Model"] . "'>";
-                echo "<div class='card-body text-center'>";
-                echo "<h5 class='card-title'>" . $row["Model"] . "</h5>";
-                echo "<p class='card-text'>Year: " . $row["Year"] . "</p>";
-                echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
-                // Добавляем форму с кнопкой "Добавить в корзину"
-                echo "<form action='cart.php' method='post'>";
-echo "<input type='hidden' name='car_id' value='" . $row["CarID"] . "'>"; // Передаем ID автомобиля
-echo "<button type='submit' name='add_to_cart' class='btn btn-primary'>Добавить в корзину</button>";
-echo "</form>"; 
+// Подключение к базе данных
+$servername = "localhost";
+$username = "root";
+$password = "mysql";
+$dbname = "autoservice";
 
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-            }
-        } else {
-            echo "0 results";   
-        }
-        $conn->close();
-        ?>
+// Создание подключения
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Проверка подключения
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Инициализация переменной для хранения запроса поиска
+$search_query = "";
+
+// Проверяем, был ли отправлен запрос поиска
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
+    // Получаем значение из поля поиска
+    $search_query = $_GET["search"];
+
+    // SQL-запрос для поиска машин по модели или году выпуска
+    $sql = "SELECT * FROM Cars WHERE Model LIKE '%$search_query%' OR Year LIKE '%$search_query%'";
+} else {
+    // Если запрос поиска не отправлен, просто выбираем все машины
+    $sql = "SELECT * FROM Cars";
+}
+
+// Выполняем запрос к базе данных
+$result = $conn->query($sql);
+
+// Проверяем, есть ли результаты
+if ($result->num_rows > 0) {
+    // Выводим данные о машинах
+    while ($row = $result->fetch_assoc()) {
+        // Выводим карточку машины
+        echo "<div class='col-md-4'>";
+        echo "<div class='card h-100'>";
+        echo "<img src='" . $row["Photo"] . "' class='card-img-top img-fluid' alt='" . $row["Model"] . "'>";
+        echo "<div class='card-body text-center'>";
+        echo "<h5 class='card-title'>" . $row["Model"] . "</h5>";
+        echo "<p class='card-text'>Year: " . $row["Year"] . "</p>";
+        echo "<p class='card-text'>Price: $" . $row["Price"] . "</p>";
+        // Добавляем форму с кнопкой "Добавить в корзину"
+        echo "<form action='cart.php' method='post'>";
+        echo "<input type='hidden' name='car_id' value='" . $row["CarID"] . "'>"; // Передаем ID автомобиля
+        echo "<button type='submit' name='add_to_cart' class='btn btn-primary'>Добавить в корзину</button>";
+        echo "</form>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+    }
+} else {
+    // Если результатов не найдено, выводим сообщение
+    echo "<p>Ничего не найдено.</p>";
+}
+
+// Закрываем соединение с базой данных
+$conn->close();
+?>
+
     </div>
 </div>
 
